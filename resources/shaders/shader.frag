@@ -20,5 +20,6 @@ void main() {
     gl_FragColor = ambient_color + diffuse_color * diffuse_value + specular_color + gl_Color*.3;
     
     // set alpha 
-    gl_FragColor.a = 1.0;
+    //gl_FragColor.a = 1.0;
+    gl_FragColor.aaaa = gl_Color.a;
 }
