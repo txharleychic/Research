@@ -8,20 +8,22 @@
 #include "Toroid.h"
 
 
-//Toroid::Toroid() {
-//}
+using namespace proto;
 
-Toroid::Toroid(const Vector3& pos, const Vector3& rot, const Dimension3<float>& size, const Color4<float>& col4, 
-                int ringCount, int ringDetail, float ringRadius, float ringThickness):
+Toroid::Toroid() {}
+
+Toroid::Toroid(const Vector3& pos, const Vector3& rot, const Dimension3<float>& size, const Color4<float>& col4, int ringCount, int ringDetail, float ringRadius, float ringThickness):
 GeomBase(pos, rot, size, col4), ringCount(ringCount), ringDetail(ringDetail), ringRadius(ringRadius), ringThickness(ringThickness) {
-
+    
     init();
 }
 
 
+
 void Toroid::calcVerts() {
+   // std::cout << "tex2 = " << tex2 << std::endl;
     // vertices
-    float x, y, z;
+    float x, y, z, u, v;
     float phi = 0; // ring rotations
     for (int i = 0, k=0; i < ringCount; i++) {
         float theta = 0;
@@ -37,9 +39,9 @@ void Toroid::calcVerts() {
             float z2 = float(z * sin(phi) + x * cos(phi));
 
 
-            // fill vertices with floats
+                    // fill vertices with floats
             verts.push_back( Vertex(Vector3(x2, y, z2), 
-                        Color4<float>(col4.getR(), col4.getG(), col4.getB(), col4.getA())) );
+                        Color4f(col4.getR(), col4.getG(), col4.getB(), col4.getA()), Tuple2f(x2*.5, z2*.5)));
 
             theta += float(M_PI * 2 / ringDetail);
         }
@@ -66,24 +68,24 @@ void Toroid::calcInds() {
 
             if (i < ringCount - 1) {
                 if (j < ringDetail - 1) {
-                    inds.push_back(Tuple3<int>(i0, i2, i3));
-                    inds.push_back(Tuple3<int>(i0, i3, i1));
+                    inds.push_back(Tuple3i(i0, i2, i3));
+                    inds.push_back(Tuple3i(i0, i3, i1));
 
                 } else {
                     // j+1 = 0
-                    inds.push_back(Tuple3<int>(i0, i5, i7));
-                    inds.push_back(Tuple3<int>(i0, i7, i1));
+                    inds.push_back(Tuple3i(i0, i5, i7));
+                    inds.push_back(Tuple3i(i0, i7, i1));
                 }
             } else {
                 if (j < ringDetail - 1) {
                     //i+1 = 0// HERE
-                    inds.push_back(Tuple3<int>(i0, i2, i8));
-                    inds.push_back(Tuple3<int>(i0, i8, i4));
+                    inds.push_back(Tuple3i(i0, i2, i8));
+                    inds.push_back(Tuple3i(i0, i8, i4));
 
                 } else {
                     //i+1 =0, j+1 = 0
-                    inds.push_back(Tuple3<int>(i0, i5, 0));
-                    inds.push_back(Tuple3<int>(i0, 0, i4));
+                    inds.push_back(Tuple3i(i0, i5, 0));
+                    inds.push_back(Tuple3i(i0, 0, i4));
                 }
             }
         }

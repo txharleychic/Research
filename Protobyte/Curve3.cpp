@@ -9,9 +9,11 @@
 #include "Curve3.h"
 #include <iostream>
 
-//using namespace ijg;
+using namespace proto;
 
 //
+
+Curve3::Curve3() {}
 
 Curve3::Curve3(const std::vector<Vector3>& controlPts,int interpDetail, bool isCurveClosed):
 controlPts(controlPts), interpDetail(interpDetail), isCurveClosed(isCurveClosed){

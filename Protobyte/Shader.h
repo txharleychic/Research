@@ -18,44 +18,48 @@
 #ifndef Protobyte_Library_V01_Shader_h
 #define Protobyte_Library_V01_Shader_h
 
+#ifdef  __linux 
+#include <GL/glew.h>
+#include <GL/gl.h>
+#define GL_GLEXT_PROTOTYPES
+#include <GL/glext.h>
+#elif defined(_WIN32) || defined(_WIN64)
+#include <GL/glew.h>
+#include <GL/gl.h>
+#define GL_GLEXT_PROTOTYPES
+#include <GL/glext.h>
+#elif __APPLE__
+#include <OpenGL/gl.h>
+#endif
+
 
 #include <stdlib.h>
 #include <string>
-#include <SFML/OpenGL.hpp>
+#include "Utility.h"
 
-#if ( (defined(__MACH__)) && (defined(__APPLE__)) )   
-#else
-// glew library needs to be installed 
-// in windows for this to work
-#include <GL/glew.h>
-#include <GL/glext.h>
-#endif
+namespace proto {
 
-class Shader {
-public:
-    Shader();
-    Shader(const char *vsFile, const char *fsFile);
-    ~Shader();
+    class Shader {
+    public:
+        Shader();
+        Shader(const char *vsFile, const char *fsFile);
+        ~Shader();
 
-    std::string fileRead(const char *fileName);
+        void init(const char *vsFile, const char *fsFile);
 
-    void init(const char *vsFile, const char *fsFile);
+        void bind();
+        void unbind();
 
-    void bind();
-    void unbind();
+        unsigned int id();
+        unsigned int shader_id;
+    private:
+        //unsigned int shader_id;
+        unsigned int shader_vp;
+        unsigned int shader_fp;
 
-    unsigned int id();
+    };
 
-private:
-    char* vertCode, * fragCode;
-    
-    FILE* vertFile, * fragFile;
-    
-    unsigned int shader_id;
-    unsigned int shader_vp;
-    unsigned int shader_fp;
-
-};
+}
 
 
 #endif

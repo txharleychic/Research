@@ -16,19 +16,30 @@
 #define Protobyte_iig001_Tuple2_h
 
 
-template <class T>
-class Tuple2 {
-    
-public:
-    T elem0, elem1;
-    T elems[2];
-    
-    
-    Tuple2(T elem0 = 0, T elem1 = 0):
-    elem0(elem0), elem1(elem1) {
-        
-    }
-    
-};
+namespace proto {
 
+    template <class T>
+    class Tuple2 {
+    public:
+        T elem0, elem1;
+        T elems[2];
+
+        Tuple2(T elem0 = 0, T elem1 = 0) :
+        elem0(elem0), elem1(elem1) {
+
+        }
+
+    };
+
+#define Tuple2f Tuple2<float>
+#define Tuple2i Tuple2<int>
+#define Tuple2b Tuple2<unsigned char>
+    
+    template<typename T>
+    std::ostream& operator<<(std::ostream& out, const Tuple2<T>& tuple2) {
+        out << tuple2.elem0 << ", " << tuple2.elem1;
+        return out;
+    }
+
+}
 #endif

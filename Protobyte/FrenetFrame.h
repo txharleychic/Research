@@ -9,12 +9,19 @@
 #ifndef Protobyte_iig001_FrenetFrame_h
 #define Protobyte_iig001_FrenetFrame_h
 
-#include <SFML/OpenGL.hpp>
+#ifdef  __APPLE__
+  #include <OpenGL/gl.h>
+#elif __linux
+  #include <GL/gl.h>
+#elif defined(_WIN32) || defined(_WIN64)
+  #include <GL/gl.h>
+#endif
+
 #include "Vector3.h"
 
 
-//namespace ijg {
-    
+namespace proto {   
+
     class FrenetFrame {
     private:
         Vector3 p, T, N, B;
@@ -33,6 +40,6 @@
         void display(float len = 10);
         
     };
-//}
+}
 
 #endif

@@ -6,25 +6,13 @@
 //  Copyright 2011 SMU. All rights reserved.
 //
 
-#include "shader.h"
+#include "Shader.h"
+#include <string.h>
 #include <iostream>
-#include <fstream>
-#include <string>
-#include <cstdlib>
 
-std::string Shader::fileRead(const char* fileName) {
-
-
-    std::ifstream in(fileName);
-    std::string contents((std::istreambuf_iterator<char>(in)),
-            std::istreambuf_iterator<char>());
-
-    return contents;
-
-}
+using namespace proto;
 
 Shader::Shader() {
-
 }
 
 Shader::Shader(const char *vsFile, const char *fsFile) {
@@ -32,54 +20,72 @@ Shader::Shader(const char *vsFile, const char *fsFile) {
 }
 
 void Shader::init(const char *vsFile, const char *fsFile) {
+    // bad code that should be changed (eventually!)
+#ifdef  __linux__ 
+    GLenum err = glewInit();
+#elif defined _WIN32
+    GLenum err = glewInit();
+#endif
+    
+     // set uniform variables for shaders
+    GLint loc1, loc2, loc3, loc4;
+    float BrickColor[4] = {0.9, 0.3, 0.1, 1.0};
+    float MortarColor[4] = {0.7, 0.7, 0.6, 1.0};
+    float BrickSize[2] = {0.3, 0.15};
+    float BrickPct[2] = {0.9, 0.85};
+
+    
+    
+    
+
+
     shader_vp = glCreateShader(GL_VERTEX_SHADER);
     shader_fp = glCreateShader(GL_FRAGMENT_SHADER);
 
-    //const char *c_str = data.c_str();
+    std::string vText = Utility::getStringFromURL(vsFile);
+    std::string fText = Utility::getStringFromURL(fsFile);
 
-    std::string vsTextStr = fileRead(vsFile);
-    std::string fsTextStr = fileRead(fsFile);
-
-    //std::cout << "fileRead(vsFile) is" << fileRead(vsFile) << std::endl;
-    //std::cout << "fsTextStr is" << fsTextStr.c_str() << std::endl;
-
-    // convert sring to char*
-   /* const GLchar* vsText = new char[vsTextStr.size() + 1];
-    vsText[vsTextStr.size()] = 0;
-    memcpy(vsText, vsTextStr.c_str(), vsTextStr.size());
-
-    const GLchar* fsText = new char[fsTextStr.size() + 1];
-    fsText[fsTextStr.size()] = 0;
-    memcpy(fsText, fsTextStr.c_str(), fsTextStr.size());*/
+    const char* vsText = vText.c_str();
+    const char* fsText = fText.c_str();
 
 
-    //const char* vsText = vsTextStr.c_str();
-    //const char* fsText = fsTextStr.c_str();
-
-    //std::cout << "fsText address is" << &fsText << std::endl;
-    //std::cout << "fsText is" << fsText << std::endl;
-
-    //std::cout << "vsText address is" << &vsText << std::endl;
-    //std::cout << "vsText is" << vsText << std::endl;
-
-
-    /*if (vsText == NULL || fsText == NULL) {
+    if (vsText == NULL || fsText == NULL) {
         std::cerr << "Either vertex shader or fragment shader file not found." << std::endl;
         return;
-    }*/
+    }
 
-    glShaderSource(shader_vp, 1, (const GLchar**)&vsTextStr, 0);
-    glShaderSource(shader_fp, 1, (const GLchar**)&fsTextStr, 0);
+    glShaderSource(shader_vp, 1, &vsText, 0);
+    glShaderSource(shader_fp, 1, &fsText, 0);
 
     glCompileShader(shader_vp);
     glCompileShader(shader_fp);
 
     shader_id = glCreateProgram();
-    
-    glAttachShader(shader_id, shader_fp);
     glAttachShader(shader_id, shader_vp);
-    
+    glAttachShader(shader_id, shader_fp);
+
     glLinkProgram(shader_id);
+    
+    
+    
+    // added for uniform shader
+    loc1 = glGetUniformLocation(shader_id, "BrickColor");
+    
+    glUniform4fv(loc1, 1, BrickColor);
+
+    loc2 = glGetUniformLocation(shader_id, "MortarColor");
+    glUniform4fv(loc2, 1, MortarColor);
+
+    loc3 = glGetUniformLocation(shader_id, "BrickSize");
+    glUniform2fv(loc3, 1, BrickSize);
+
+    loc4 = glGetUniformLocation(shader_id, "BrickPct");
+    glUniform2fv(loc4, 1, BrickPct);
+    
+    std::cout << "loc1 = " << loc1 << std::endl;
+    std::cout << "loc2 = " << loc2 << std::endl;
+    std::cout << "loc3 = " << loc3 << std::endl;
+    std::cout << "loc4 = " << loc4 << std::endl;
 }
 
 Shader::~Shader() {
@@ -89,7 +95,6 @@ Shader::~Shader() {
     glDeleteShader(shader_fp);
     glDeleteShader(shader_vp);
     glDeleteProgram(shader_id);
-
 }
 
 unsigned int Shader::id() {

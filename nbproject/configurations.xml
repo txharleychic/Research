@@ -6,18 +6,34 @@
                    projectFiles="true">
     </logicalFolder>
     <logicalFolder name="Protobyte" displayName="Protobyte" projectFiles="true">
+      <itemPath>Protobyte/Block.cpp</itemPath>
+      <itemPath>Protobyte/Block.h</itemPath>
+      <itemPath>Protobyte/BlockGrid.cpp</itemPath>
+      <itemPath>Protobyte/BlockGrid.h</itemPath>
+      <itemPath>Protobyte/Branch.cpp</itemPath>
+      <itemPath>Protobyte/Branch.h</itemPath>
       <itemPath>Protobyte/Color3.h</itemPath>
       <itemPath>Protobyte/Color4.h</itemPath>
+      <itemPath>Protobyte/ConvolveFilter.cpp</itemPath>
+      <itemPath>Protobyte/ConvolveFilter.h</itemPath>
       <itemPath>Protobyte/Curve3.cpp</itemPath>
       <itemPath>Protobyte/Curve3.h</itemPath>
       <itemPath>Protobyte/Dimension3.h</itemPath>
       <itemPath>Protobyte/Face3.cpp</itemPath>
       <itemPath>Protobyte/Face3.h</itemPath>
+      <itemPath>Protobyte/FilterBase.cpp</itemPath>
+      <itemPath>Protobyte/FilterBase.h</itemPath>
       <itemPath>Protobyte/FrenetFrame.cpp</itemPath>
       <itemPath>Protobyte/FrenetFrame.h</itemPath>
       <itemPath>Protobyte/GeomBase.cpp</itemPath>
       <itemPath>Protobyte/GeomBase.h</itemPath>
+      <itemPath>Protobyte/GroundPlane.cpp</itemPath>
+      <itemPath>Protobyte/GroundPlane.h</itemPath>
       <itemPath>Protobyte/IGConstants.h</itemPath>
+      <itemPath>Protobyte/Image.cpp</itemPath>
+      <itemPath>Protobyte/Image.h</itemPath>
+      <itemPath>Protobyte/Lindenmayer.cpp</itemPath>
+      <itemPath>Protobyte/Lindenmayer.h</itemPath>
       <itemPath>Protobyte/Math.h</itemPath>
       <itemPath>Protobyte/Matrix3.cpp</itemPath>
       <itemPath>Protobyte/Matrix3.h</itemPath>
@@ -25,16 +41,23 @@
       <itemPath>Protobyte/Matrix4.h</itemPath>
       <itemPath>Protobyte/Shader.cpp</itemPath>
       <itemPath>Protobyte/Shader.h</itemPath>
+      <itemPath>Protobyte/Sphere.cpp</itemPath>
+      <itemPath>Protobyte/Sphere.h</itemPath>
       <itemPath>Protobyte/Spline3.cpp</itemPath>
       <itemPath>Protobyte/Spline3.h</itemPath>
       <itemPath>Protobyte/Tendril.cpp</itemPath>
       <itemPath>Protobyte/Tendril.h</itemPath>
+      <itemPath>Protobyte/Texture2.cpp</itemPath>
+      <itemPath>Protobyte/Texture2.h</itemPath>
       <itemPath>Protobyte/Toroid.cpp</itemPath>
       <itemPath>Protobyte/Toroid.h</itemPath>
+      <itemPath>Protobyte/Tree.cpp</itemPath>
+      <itemPath>Protobyte/Tree.h</itemPath>
       <itemPath>Protobyte/Tube.cpp</itemPath>
       <itemPath>Protobyte/Tube.h</itemPath>
       <itemPath>Protobyte/Tuple2.h</itemPath>
       <itemPath>Protobyte/Tuple3.h</itemPath>
+      <itemPath>Protobyte/Utility.h</itemPath>
       <itemPath>Protobyte/Vector3.cpp</itemPath>
       <itemPath>Protobyte/Vector3.h</itemPath>
       <itemPath>Protobyte/Vertex.cpp</itemPath>
@@ -43,13 +66,29 @@
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
+      <logicalFolder name="imgs" displayName="imgs" projectFiles="true">
+        <itemPath>resources/imgs/fields.raw</itemPath>
+        <itemPath>resources/imgs/landscape.raw</itemPath>
+        <itemPath>resources/imgs/peaks.raw</itemPath>
+        <itemPath>resources/imgs/ship_plate.raw</itemPath>
+        <itemPath>resources/imgs/smallScape.raw</itemPath>
+        <itemPath>resources/imgs/white_texture.raw</itemPath>
+      </logicalFolder>
+      <itemPath>resources/shaders/perFragmentLighting_02.frag</itemPath>
+      <itemPath>resources/shaders/perFragmentLighting_02.vert</itemPath>
+      <itemPath>resources/shaders/phong_shader.frag</itemPath>
+      <itemPath>resources/shaders/phong_shader.vert</itemPath>
       <itemPath>resources/shaders/shader.frag</itemPath>
       <itemPath>resources/shaders/shader.vert</itemPath>
+      <itemPath>resources/shaders/shader_bricks.frag</itemPath>
+      <itemPath>resources/shaders/shader_bricks.vert</itemPath>
+      <itemPath>resources/shaders/singleLight.frag</itemPath>
+      <itemPath>resources/shaders/singleLight.vert</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>main.cpp</itemPath>
+      <itemPath>main_growthTendril_01.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -61,10 +100,12 @@
                    projectFiles="false"
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
+      <itemPath>runProtobyte.sh</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
     <Elem>Protobyte</Elem>
+    <Elem>resources/imgs</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -76,32 +117,20 @@
       <compileType>
         <ccTool>
           <incDir>
-            <pElem>../libSFML/dylibs/root/usr/local/include</pElem>
-            <pElem>/System/Library/Frameworks/OpenGL.framework</pElem>
             <pElem>/System/Library/Frameworks/OpenGL.framework/Headers</pElem>
             <pElem>/System/Library/Frameworks/GLUT.framework/Headers</pElem>
-            <pElem>/System/Library/Frameworks/GLUT.framework</pElem>
+            <pElem>/Library/Frameworks/SFML.framework/Headers</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/research</output>
+          <commandlineTool>g++</commandlineTool>
           <linkerLibItems>
-            <linkerLibFileItem>../libSFML/dylibs/root/usr/local/lib/libsfml-audio.2.0.dylib</linkerLibFileItem>
-            <linkerLibFileItem>../libSFML/dylibs/root/usr/local/lib/libsfml-audio.2.dylib</linkerLibFileItem>
-            <linkerLibFileItem>../libSFML/dylibs/root/usr/local/lib/libsfml-audio.dylib</linkerLibFileItem>
-            <linkerLibFileItem>../libSFML/dylibs/root/usr/local/lib/libsfml-graphics.2.0.dylib</linkerLibFileItem>
-            <linkerLibFileItem>../libSFML/dylibs/root/usr/local/lib/libsfml-graphics.2.dylib</linkerLibFileItem>
-            <linkerLibFileItem>../libSFML/dylibs/root/usr/local/lib/libsfml-graphics.dylib</linkerLibFileItem>
-            <linkerLibFileItem>../libSFML/dylibs/root/usr/local/lib/libsfml-network.2.0.dylib</linkerLibFileItem>
-            <linkerLibFileItem>../libSFML/dylibs/root/usr/local/lib/libsfml-network.2.dylib</linkerLibFileItem>
-            <linkerLibFileItem>../libSFML/dylibs/root/usr/local/lib/libsfml-network.dylib</linkerLibFileItem>
-            <linkerLibFileItem>../libSFML/dylibs/root/usr/local/lib/libsfml-system.2.0.dylib</linkerLibFileItem>
-            <linkerLibFileItem>../libSFML/dylibs/root/usr/local/lib/libsfml-system.2.dylib</linkerLibFileItem>
-            <linkerLibFileItem>../libSFML/dylibs/root/usr/local/lib/libsfml-system.dylib</linkerLibFileItem>
-            <linkerLibFileItem>../libSFML/dylibs/root/usr/local/lib/libsfml-window.2.0.dylib</linkerLibFileItem>
-            <linkerLibFileItem>../libSFML/dylibs/root/usr/local/lib/libsfml-window.2.dylib</linkerLibFileItem>
-            <linkerLibFileItem>../libSFML/dylibs/root/usr/local/lib/libsfml-window.dylib</linkerLibFileItem>
-            <linkerLibFileItem>/System/Library/Frameworks/GLUT.framework/GLUT</linkerLibFileItem>
-            <linkerLibFileItem>/System/Library/Frameworks/OpenGL.framework/Versions/A/OpenGL</linkerLibFileItem>
+            <linkerLibFileItem>/System/Library/Frameworks/GLUT.framework/Versions/A/GLUT</linkerLibFileItem>
+            <linkerLibFileItem>/System/Library/Frameworks/OpenGL.framework/OpenGL</linkerLibFileItem>
+            <linkerLibFileItem>/Library/Frameworks/sfml-graphics.framework/sfml-graphics</linkerLibFileItem>
+            <linkerLibFileItem>/Library/Frameworks/sfml-window.framework/sfml-window</linkerLibFileItem>
+            <linkerLibFileItem>/Library/Frameworks/sfml-system.framework/sfml-system</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
@@ -117,6 +146,11 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>/System/Library/Frameworks/OpenGL.framework/Headers</pElem>
+            <pElem>/System/Library/Frameworks/GLUT.framework/Headers</pElem>
+            <pElem>/Library/Frameworks/SFML.framework/Headers</pElem>
+          </incDir>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -124,6 +158,15 @@
         <asmTool>
           <developmentMode>5</developmentMode>
         </asmTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibFileItem>/System/Library/Frameworks/GLUT.framework/Versions/A/GLUT</linkerLibFileItem>
+            <linkerLibFileItem>/System/Library/Frameworks/OpenGL.framework/OpenGL</linkerLibFileItem>
+            <linkerLibFileItem>/Library/Frameworks/sfml-graphics.framework/sfml-graphics</linkerLibFileItem>
+            <linkerLibFileItem>/Library/Frameworks/sfml-window.framework/sfml-window</linkerLibFileItem>
+            <linkerLibFileItem>/Library/Frameworks/sfml-system.framework/sfml-system</linkerLibFileItem>
+          </linkerLibItems>
+        </linkerTool>
       </compileType>
     </conf>
   </confs>

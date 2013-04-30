@@ -8,14 +8,16 @@
 
 #include "Tube.h"
 
-//using namespace ijg;
+using namespace proto;
 
 std::ostream& operator<<(std::ostream& out, const Tube& tube) {
     out << "No Information to report at the moment";
     return out;
 }
 
-Tube::Tube(const Vector3& pos, const Vector3& rot, const Dimension3<float> size, const Color4<float> col4, const Spline3& path, float radius, int crossSectionDetail) :
+Tube::Tube() { }
+
+Tube::Tube(const Vector3& pos, const Vector3& rot, const Dimension3<float> size, const Color4f col4, const Spline3& path, float radius, int crossSectionDetail) :
 GeomBase(pos, rot, size, col4), path(path), radius(radius), crossSectionDetail(crossSectionDetail) {
     // float t = 0;
     for (int i = 0; i < path.getVertsLength(); i++) {
@@ -25,7 +27,7 @@ GeomBase(pos, rot, size, col4), path(path), radius(radius), crossSectionDetail(c
     init();
 }
 
-Tube::Tube(const Vector3& pos, const Vector3& rot, const Dimension3<float> size, const Color4<float> col4, const Spline3& path, std::vector<float> radii, int crossSectionDetail) : // varied thickness
+Tube::Tube(const Vector3& pos, const Vector3& rot, const Dimension3<float> size, const Color4f col4, const Spline3& path, std::vector<float> radii, int crossSectionDetail) : // varied thickness
 GeomBase(pos, rot, size, col4), path(path), radii(radii), crossSectionDetail(crossSectionDetail) {
     for (int i = 0; i < path.getVertsLength(); i++) {
         col4s.push_back(col4);
@@ -34,7 +36,7 @@ GeomBase(pos, rot, size, col4), path(path), radii(radii), crossSectionDetail(cro
 }
 
 Tube::Tube(const Vector3& pos, const Vector3& rot, const Dimension3<float> size, 
-        const std::vector< Color4<float> > col4s, const Spline3& path, float radius, int crossSectionDetail) : // varied color
+        const std::vector< Color4f > col4s, const Spline3& path, float radius, int crossSectionDetail) : // varied color
 GeomBase(pos, rot, size, col4s), path(path), radius(radius), crossSectionDetail(crossSectionDetail) {
     // float t = 0;
     for (int i = 0; i < path.getVertsLength(); i++) {

@@ -11,159 +11,170 @@
 
 #include <iostream>
 
+namespace proto {
 
-/*****************************************************/
-/*            Non-Member Overloaded Ops              */
-/*****************************************************/
-template <class T> class Dimension3; // forward declaration
+    /*****************************************************/
+    /*            Non-Member Overloaded Ops              */
+    /*****************************************************/
+    template <class T> class Dimension3; // forward declaration
 
-template <class T> 
-Dimension3<T> operator+(const Dimension3<T>& lhs, const Dimension3<T>& rhs) {
-    return Dimension3<T>(lhs.w+rhs.w, lhs.h+rhs.h, lhs.d+rhs.d);
-}
-
-template <class T> 
-Dimension3<T> operator-(const Dimension3<T>& lhs, const Dimension3<T>& rhs) {
-    return Dimension3<T>(lhs.w-rhs.w, lhs.h-rhs.h, lhs.d-rhs.d);
-}
-
-template <class T> 
-Dimension3<T> operator*(const Dimension3<T>& lhs, const Dimension3<T>& rhs) {
-    return Dimension3<T>(lhs.w*rhs.w, lhs.h*rhs.h, lhs.d*rhs.d);
-}
-
-template <class T> 
-Dimension3<T> operator/(const Dimension3<T>& lhs, const Dimension3<T>& rhs) {
-    return Dimension3<T>(lhs.w/rhs.w, lhs.h/rhs.h, lhs.d/rhs.d);
-}
-
-
-// templated Dimension class
-template <class T>
-class Dimension3 {
-private:
-    //T w, h, d;
-
-public:
-
-    T w, h, d;
-
-    explicit Dimension3(T w = 1, T h = 1, T d = 1) :
-    w(w), h(h), d(d) {
+    template <class T>
+    Dimension3<T> operator+(const Dimension3<T>& lhs, const Dimension3<T>& rhs) {
+        return Dimension3<T > (lhs.w + rhs.w, lhs.h + rhs.h, lhs.d + rhs.d);
     }
 
-    void setW(T w) {
-        this->w = w;
+    template <class T>
+    Dimension3<T> operator-(const Dimension3<T>& lhs, const Dimension3<T>& rhs) {
+        return Dimension3<T > (lhs.w - rhs.w, lhs.h - rhs.h, lhs.d - rhs.d);
     }
 
-    void setH(T h) {
-        this->h = h;
+    template <class T>
+    Dimension3<T> operator*(const Dimension3<T>& lhs, const Dimension3<T>& rhs) {
+        return Dimension3<T > (lhs.w * rhs.w, lhs.h * rhs.h, lhs.d * rhs.d);
     }
 
-    void setD(T d) {
-        this->d = d;
+    template <class T>
+    Dimension3<T> operator/(const Dimension3<T>& lhs, const Dimension3<T>& rhs) {
+        return Dimension3<T > (lhs.w / rhs.w, lhs.h / rhs.h, lhs.d / rhs.d);
     }
 
-    const T getW(T w) const {
-        return w;
-    }
 
-    const T getH(T h) const {
-        return h;
-    }
+    // templated Dimension class
 
-    const T getD(T d) const {
-        return d;
-    }
+    template <class T>
+    class Dimension3 {
+    private:
+        //T w, h, d;
 
-    Dimension3<T>& operator+=(const Dimension3<T>& s) {
-        w += s.w;
-        h += s.h;
-        d += s.d;
-        return *this;
-    }
+    public:
 
-    Dimension3<T>& operator+=(double f) {
-        w += f;
-        h += f;
-        d += f;
-        return *this;
-    }
+        T w, h, d;
 
-    Dimension3<T>& operator-=(const Dimension3<T>& s) {
-        w -= s.w;
-        h -= s.h;
-        d -= s.d;
-        return *this;
-    }
+        friend std::ostream& operator<<(std::ostream& output, const Dimension3<T>& dim) {
+            output << "(" << dim.w << ", " << dim.h << ", " << dim.d << ")";
+            return output;
+        }
 
-    Dimension3<T>& operator-=(double f) {
-        w -= f;
-        h -= f;
-        d -= f;
-        return *this;
-    }
+        explicit Dimension3(T w = 1, T h = 1, T d = 1) :
+        w(w), h(h), d(d) {
+        }
 
-    Dimension3<T>& operator*=(const Dimension3<T>& s) {
-        w *= s.w;
-        h *= s.h;
-        d *= s.d;
-        return *this;
-    }
+        void setW(T w) {
+            this->w = w;
+        }
 
-    Dimension3<T>& operator*=(double f) {
-        w *= f;
-        h *= f;
-        d *= f;
-        return *this;
-    }
+        void setH(T h) {
+            this->h = h;
+        }
 
-    Dimension3<T>& operator/=(const Dimension3<T>& s) {
-        w /= s.w;
-        h /= s.h;
-        d /= s.d;
-        return *this;
-    }
+        void setD(T d) {
+            this->d = d;
+        }
 
-    Dimension3<T>& operator/=(double f) {
-        w /= f;
-        h /= f;
-        d /= f;
-        return *this;
-    }
+        const T getW(T w) const {
+            return w;
+        }
 
-    Dimension3<T>& operator++() {
-        ++w;
-        ++h;
-        ++d;
-        return *this;
-    }
+        const T getH(T h) const {
+            return h;
+        }
+
+        const T getD(T d) const {
+            return d;
+        }
+
+        Dimension3<T>& operator+=(const Dimension3<T>& s) {
+            w += s.w;
+            h += s.h;
+            d += s.d;
+            return *this;
+        }
+
+        Dimension3<T>& operator+=(double f) {
+            w += f;
+            h += f;
+            d += f;
+            return *this;
+        }
+
+        Dimension3<T>& operator-=(const Dimension3<T>& s) {
+            w -= s.w;
+            h -= s.h;
+            d -= s.d;
+            return *this;
+        }
+
+        Dimension3<T>& operator-=(double f) {
+            w -= f;
+            h -= f;
+            d -= f;
+            return *this;
+        }
+
+        Dimension3<T>& operator*=(const Dimension3<T>& s) {
+            w *= s.w;
+            h *= s.h;
+            d *= s.d;
+            return *this;
+        }
+
+        Dimension3<T>& operator*=(double f) {
+            w *= f;
+            h *= f;
+            d *= f;
+            return *this;
+        }
+
+        Dimension3<T>& operator/=(const Dimension3<T>& s) {
+            w /= s.w;
+            h /= s.h;
+            d /= s.d;
+            return *this;
+        }
+
+        Dimension3<T>& operator/=(double f) {
+            w /= f;
+            h /= f;
+            d /= f;
+            return *this;
+        }
+
+        Dimension3<T>& operator++() {
+            ++w;
+            ++h;
+            ++d;
+            return *this;
+        }
+
+        Dimension3<T>& operator++(int) {
+            w++;
+            h++;
+            d++;
+            return *this;
+        }
+
+        Dimension3<T>& operator--() {
+            --w;
+            --h;
+            --d;
+            return *this;
+        }
+
+        Dimension3<T>& operator--(int) {
+            w--;
+            h--;
+            d--;
+            return *this;
+        }
+
+        double operator[](int index);
+        bool operator==(const Dimension3<T>& v) const;
+
+    };
     
-    Dimension3<T>& operator++(int) {
-        w++;
-        h++;
-        d++;
-        return *this;
-    }
-    
-    Dimension3<T>& operator--() {
-        --w;
-        --h;
-        --d;
-        return *this;
-    }
-    
-    Dimension3<T>& operator--(int) {
-        w--;
-        h--;
-        d--;
-        return *this;
-    }
+    // most common usages
+    #define Dimension3f Dimension3<float>
+    #define Dimension3i Dimension3<int>
 
-    double operator[](int index);
-    bool operator==(const Dimension3<T>& v) const;
-
-};
-
-
+}
 #endif /* defined(__SFML_simple_renderer_06__Dimension3__) */
