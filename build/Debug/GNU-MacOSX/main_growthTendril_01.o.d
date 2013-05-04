@@ -8,7 +8,8 @@ build/Debug/GNU-MacOSX/main_growthTendril_01.o:  \
   Protobyte/Math.h Protobyte/Color4.h Protobyte/Shader.h \
   Protobyte/Utility.h Protobyte/Texture2.h Protobyte/Block.h \
   Protobyte/BlockGrid.h Protobyte/GroundPlane.h Protobyte/GroundPlane.h \
-  Protobyte/Sphere.h Protobyte/utilityFunctions.h
+  Protobyte/Sphere.h Protobyte/Helix.h Protobyte/GraphicsCore.h \
+  Protobyte/Tube.h Protobyte/Math.h Protobyte/utilityFunctions.h
 
 Protobyte/Toroid.h:
 
@@ -63,5 +64,13 @@ Protobyte/GroundPlane.h:
 Protobyte/GroundPlane.h:
 
 Protobyte/Sphere.h:
+
+Protobyte/Helix.h:
+
+Protobyte/GraphicsCore.h:
+
+Protobyte/Tube.h:
+
+Protobyte/Math.h:
 
 Protobyte/utilityFunctions.h:

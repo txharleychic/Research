@@ -41,6 +41,9 @@
 #include "Color4.h"
 #include "Texture2.h"
 #include "GLInfo.h"
+#include <fstream>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 
 namespace proto {
@@ -53,10 +56,10 @@ namespace proto {
     protected:
 
         Vector3 pos, rot;
-        Vector3 spd, rotSpd;
         Dimension3f size;
         Color4f col4;
         std::vector< Color4f > col4s;
+        Vector3 spd, rotSpd;
         Texture2 bumpMap;
         float textureScale;
 
@@ -158,13 +161,14 @@ namespace proto {
         
         void setBumpMap(Texture2 bumpMap);
         Texture2 getBumpMap() const;
-
+        
+        // stl exporter
+        void exportSTL();
 
 
     };
 
     // setters/getters
-
     inline void GeomBase::setPosition(const Vector3& pos) {
         this->pos = pos;
     }

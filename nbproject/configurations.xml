@@ -27,8 +27,12 @@
       <itemPath>Protobyte/FrenetFrame.h</itemPath>
       <itemPath>Protobyte/GeomBase.cpp</itemPath>
       <itemPath>Protobyte/GeomBase.h</itemPath>
+      <itemPath>Protobyte/GraphicsCore.cpp</itemPath>
+      <itemPath>Protobyte/GraphicsCore.h</itemPath>
       <itemPath>Protobyte/GroundPlane.cpp</itemPath>
       <itemPath>Protobyte/GroundPlane.h</itemPath>
+      <itemPath>Protobyte/Helix.cpp</itemPath>
+      <itemPath>Protobyte/Helix.h</itemPath>
       <itemPath>Protobyte/IGConstants.h</itemPath>
       <itemPath>Protobyte/Image.cpp</itemPath>
       <itemPath>Protobyte/Image.h</itemPath>
@@ -102,6 +106,7 @@
       <itemPath>Makefile</itemPath>
       <itemPath>runProtobyte.sh</itemPath>
     </logicalFolder>
+    <itemPath>Protobyte/discard.cpp</itemPath>
   </logicalFolder>
   <sourceRootList>
     <Elem>Protobyte</Elem>

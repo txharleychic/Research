@@ -8,6 +8,7 @@
 
 #include "GeomBase.h"
 
+
 using namespace proto;
 
 GeomBase::GeomBase() {
@@ -17,9 +18,8 @@ GeomBase::GeomBase() {
 // pass array of colors
 
 GeomBase::GeomBase(const Vector3& pos, const Vector3& rot, const Dimension3f size, const Color4f col4) :
-pos(pos), rot(rot), size(size), col4(col4){
+pos(pos), rot(rot), size(size), col4(col4) {
 }
-
 
 GeomBase::GeomBase(const Vector3& pos, const Vector3& rot, const Dimension3f size, const std::vector< Color4f > col4s) :
 pos(pos), rot(rot), size(size), col4s(col4s) {
@@ -365,6 +365,33 @@ void GeomBase::rotate(const Vector3& r) {
 
 void GeomBase::scale(const Dimension3f& s) {
     size += s;
+}
+
+void GeomBase::exportSTL() {
+    if (mkdir("../exportData", 0777) == -1)//creating a directory
+    {
+        //std::cout << "STL file Successfully Written" << std::endl;
+        //std::cerr<<"Error :  "<< strerror (errno)<< std::endl;
+        //exit(1);
+    }
+    std::ofstream myfile;
+    myfile.open("../exportData/geomData.STL");
+
+    myfile << "solid PROTOBYTE\n";
+    for (int i = 0; i < faces.size(); i++) {
+        myfile << std::scientific << std::setprecision(7) << "\tfacet normal " <<
+                faces[i].getNorm().x << " " << faces[i].getNorm().y << " " << faces[i].getNorm().z << "\n" <<
+                "\t\touter loop\n" <<
+                "\t\t\tvertex " << faces[i].v0_p->pos.x << " " << faces[i].v0_p->pos.y << " " << faces[i].v0_p->pos.z << "\n" <<
+                "\t\t\tvertex " << faces[i].v1_p->pos.x << " " << faces[i].v1_p->pos.y << " " << faces[i].v1_p->pos.z << "\n" <<
+                "\t\t\tvertex " << faces[i].v2_p->pos.x << " " << faces[i].v2_p->pos.y << " " << faces[i].v2_p->pos.z << "\n" <<
+                "\t\tendloop\n" <<
+                "\tendfacet\n";
+    }
+    myfile << "endsolid PROTOBYTE\n";
+
+    myfile.close();
+    std::cout << "STL file Successfully Written" << std::endl;
 }
 
 

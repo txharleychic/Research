@@ -46,8 +46,8 @@ void Sphere::calcVerts2() {
     // always 1 more segment than points along spline
     for (int i = 0; i < spineNodes; i++) {
         // z rotation
-        x = cos(theta) * radiusX;
-        y = sin(theta) * radiusY;
+        x = cos(theta) * .5;
+        y = sin(theta) * .5;
         z = 0.0;
         phi = 0.0;
         for (int j = 0; j < spines; j++) {
@@ -169,8 +169,10 @@ void Sphere::calcVerts() {
     float tempX = 0, tempZ = 0;
     float theta = -M_PI / 2.0, phi = 0.0;
    // int counter = 0;
-    int radiusX = size.w / 2.0;
-    int radiusY = size.w / 2.0;
+    
+    // untransformed UNit sphere
+    int radiusX = .5;
+    int radiusY = .5;
 
     // always 1 more segment than points along spline
     for (int i = 0; i < spineNodes; i++) {

@@ -69,9 +69,9 @@ void Spline3::init() {
     // add last control point to verts vector
     verts.push_back(controlPts.at(controlPts.size() - 2));
 
-    for (int i = 0; i < verts.size(); i++) {
-        std::cout << "verts.at(" << i << ") = " << verts.at(i) << std::endl;
-    }
+//    for (int i = 0; i < verts.size(); i++) {
+//        std::cout << "verts.at(" << i << ") = " << verts.at(i) << std::endl;
+//    }
     /* ensure tube section don't flip */
     parallelTransport();
 }

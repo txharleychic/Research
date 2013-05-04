@@ -31,7 +31,7 @@ namespace proto {
         // Vector3 v0, v1, v2;
         Vertex vecs[3];
         //Vertex v0, v1, v2;
-        Vertex *v0_p, *v1_p, *v2_p;
+        //Vertex *v0_p, *v1_p, *v2_p;
         Vector3 norm, centroid;
 
         void init();
@@ -53,6 +53,8 @@ namespace proto {
 
         //const Vertex& operator[](int index);
         const Vertex* operator[](int index);
+        
+        Vertex *v0_p, *v1_p, *v2_p;
 
     };
 }

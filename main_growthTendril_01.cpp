@@ -36,6 +36,7 @@
 #include "Protobyte/BlockGrid.h"
 #include "Protobyte/GroundPlane.h"
 #include "Protobyte/Sphere.h"
+#include "Protobyte/Helix.h"
 
 #include "Protobyte/utilityFunctions.h"
 
@@ -74,12 +75,13 @@ float liveRotX, liveRotY;
 float worldRotX, worldRotY;
 float mouseRotX, mouseRotY;
 float transX, transY, transZ;
+bool isLeftPressed, isRightPressed, isUpPressed, isZoomPressed;
 
 
 /**********************************
  *      animation and timer       *
  *********************************/
-int interframeDelay = 5;
+int interframeDelay = 0;
 void animationLoop(int delay);
 
 
@@ -107,7 +109,7 @@ GLfloat light01_position[] = {-20, 10, 5.0, 0.0};
 
 //materials
 GLfloat light01_mat_specular[] = {1.0, 1.0, 1.0, 1.0};
-GLfloat light01_mat_shininess[] = {109}; // max 128
+GLfloat light01_mat_shininess[] = {128}; // max 128
 
 /**********************************
  *           Geometry             *
@@ -115,6 +117,8 @@ GLfloat light01_mat_shininess[] = {109}; // max 128
 
 Spline3 spline01;
 Tube tube;
+Helix helix;
+Sphere sphere;
 
 
 
@@ -143,27 +147,11 @@ void draw();
 //============================================================================
 
 void setGeom() {
-    /*Spline3::Spline3(const std::vector<Vector3>& controlPts, int interpDetail, 
-    bool isCurveClosed, float smoothness) :
-    Curve3(controlPts, interpDetail, isCurveClosed), smoothness(smoothness) {
-     */
-    std::vector<Vector3> pts;
-//    pts.push_back(Vector3(-40, -15, 0));
-//    pts.push_back(Vector3(-10, -5, 0));
-//    pts.push_back(Vector3(0, 0, 0));
-//    pts.push_back(Vector3(5, -9, 0));
-//    pts.push_back(Vector3(10, 5, 0));
-//    pts.push_back(Vector3(40, 15, 0));
-    
-    int cpLen = 60;
-    pts.resize(cpLen);
-    for(int i=0; i<cpLen; ++i){
-        pts.at(i) = Vector3(Math::random(-120, 120), Math::random(-120, 120), Math::random(-120, 120));
-    }
-    
-    spline01 = Spline3(pts, 20, false, .5);
-    //const Vector3& pos, const Vector3& rot, const Dimension3<float> size, const Color4f col4, const Spline3& path, float radius, int crossSectionDetail
-    tube = Tube(Vector3(0,0,0), Vector3(0,0,0), Dimension3f(1, 1, 1), Color4f(.3, .6, .25, .9), spline01, 1, 24);
+
+    helix = Helix(Vector3(0, 0, 0), Vector3(0, 0, 0), Dimension3f(65, 65, 65), Color4f(.5, .8, .45, 1.0), 4, .075, 20, 10, 2, 4, .01);
+
+    // sphere = Sphere(Vector3(0,0,0), Vector3(0,0,0), Dimension3f(20, 20, 20), Color4f(.2, .4, .6), 12, 12);
+
 
 
 }
@@ -335,14 +323,23 @@ void draw() {
     //glDisable(GL_TEXTURE_2D);
     //shader.bind();
     //shader.unbind();
-    //glEnable(GL_TEXTURE_2D);
-    //glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+    glEnable(GL_TEXTURE_2D);
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
     // glShadeModel(GL_FLAT);
     //glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-    spline01.display();
-    spline01.displayControlPts();
-    spline01.displayInterpPts();
-    tube.display(GeomBase::VERTEX_BUFFER_OBJECT, GeomBase::SURFACE);
+
+    //    spline01.display();
+    //    spline01.displayControlPts();
+    //    spline01.displayInterpPts();
+
+    //tube.display(GeomBase::VERTEX_BUFFER_OBJECT, GeomBase::SURFACE);
+
+    //glScalef(5, 5, 5);
+    shader.bind();
+    helix.display();
+    shader.unbind();
+    
+    //sphere.display();
     glPopMatrix();
 
 }
@@ -366,6 +363,7 @@ int main() {
     // main event animation loop
     while (win.running) {
         // handle events
+        isZoomPressed = false;
         sf::Event event;
         while (window.pollEvent(event)) {
 
@@ -412,6 +410,7 @@ int main() {
                         transZ++;
                     } else if (event.key.code == sf::Keyboard::Z) {
                         transZ--;
+                        //isZoomPressed = true;
                     } else if (event.key.code == sf::Keyboard::Q) {
                         win.running = false;
                         window.close();
@@ -474,7 +473,9 @@ int main() {
 
 
         }
-
+//        if(isZoomPressed){
+//                transZ--;
+//        }
         draw();
 
         // end the current frame (internally swaps the front and back buffers)
